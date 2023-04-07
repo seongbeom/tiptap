@@ -51,6 +51,10 @@ export const getEmbedUrlFromYoutubeUrl = (options: GetEmbedUrlOptions) => {
     progressBarColor,
     startAt,
   } = options
+  
+  if (!url) {
+    return null
+  }
 
   // if is already an embed url, return it
   if (url.includes('/embed/')) {
@@ -67,7 +71,8 @@ export const getEmbedUrlFromYoutubeUrl = (options: GetEmbedUrlOptions) => {
     return `${getYoutubeEmbedUrl(nocookie)}${id}`
   }
 
-  const videoIdRegex = /v=([-\w]+)/gm
+//   const videoIdRegex = /v=([-\w]+)/gm
+  const videoIdRegex = /(?:v=|shorts\/)([-\w]+)/gm
   const matches = videoIdRegex.exec(url)
 
   if (!matches || !matches[1]) {
